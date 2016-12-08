@@ -22,7 +22,7 @@ const firstEntityValue = (entities, entity) => {
 // var apirl = 'http://www.omdbapi.com/?t=' + context
 
 const actions = {
-  // var apirl = 'http://www.omdbapi.com/?t=' + context
+    // var apirl = 'http://www.omdbapi.com/?t=' + context
 
     say(sessionId, context, message, cb) {
         console.log(message);
@@ -84,8 +84,9 @@ const actions = {
 
 
     // fetch-weather bot executes
-     ['fetch-genre'] (sessionId, context, cb) {
-       var apirl = 'http://www.omdbapi.com/?t=' + context
+    ['fetch-genre'](sessionId, context, cb) {
+        var movieGenre = function getGenre(context) {
+            var apirl = 'http://www.omdbapi.com/?t=' + context.title;
 
 
             request({
@@ -114,13 +115,16 @@ const actions = {
                         }
 
                     })
-                    cb(context);
+
 
                 })
 
+        };
 
-    // var a=  getGenre(context,cb)
-    //   context.genre=a
+
+        // var a=  getGenre(context,cb)
+        context.genre = movieGenre(context);
+        cb(context);
     }
 
 
@@ -163,7 +167,7 @@ const actions = {
 //
 // }
 
- const getWit = () => {
+const getWit = () => {
     return new Wit(Config.WIT_TOKEN, actions);
 };
 
