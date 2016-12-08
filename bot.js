@@ -69,19 +69,19 @@ const actions = {
         }
     },
 
-    ['getGenre'](sessionId, context, cb) {
-        //  var genre = firstEntityValue(entities, 'genre');
-        context.genre = 'comedy';
-        cb(context);
+    // // ['getGenre'](sessionId, context, cb) {
+    // //     //  var genre = firstEntityValue(entities, 'genre');
+    // //     context.genre = 'comedy';
+    // //     cb(context);
 
 
-    },
+    // // },
 
 
-    merge(sessionId, context, entities, message, cb) {
+    getGenre(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
         const title = firstEntityValue(entities, message);
-        if (loc) {
+        if (title) {
             context.title = title; // store it in context
         }
 
