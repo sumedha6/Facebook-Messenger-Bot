@@ -68,9 +68,9 @@ const actions = {
 
     merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
-        const title = firstEntityValue(entities, 'name');
+        const title = firstEntityValue(entities, 'wit_name');
         if (title) {
-            context.title = title; // store it in context
+            context.title= title; // store it in context
         }
 
         cb(context);
@@ -85,7 +85,7 @@ const actions = {
 
     // fetch-weather bot executes
      ['fetch-genre'] (sessionId, context, cb) {
-       var apirl = 'http://www.omdbapi.com/?t=' + context
+       var apirl = 'http://www.omdbapi.com/?t='+context.title
 
 
             request({
