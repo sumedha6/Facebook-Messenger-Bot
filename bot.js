@@ -80,9 +80,9 @@ const actions = {
 
     merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
-        const title = firstEntityValue(entities, message);                    //changed
-        if (title) {                                                   //changed
-            context.title = title; // store it in context                  changed  
+        const title = firstEntityValue(entities, message);
+        if (loc) {
+            context.title = title; // store it in context
         }
 
         cb(context);
@@ -93,44 +93,62 @@ const actions = {
     },
 
     // fetch-weather bot executes
-    ['fetch-genre'](sessionId, context, cb) {
+    ['fetch-weather'](sessionId, context, cb) {
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
+        findGenre(sessionID,context,callback)
 
-//////////New Code//////////////////////////
-
-var apiUrl = 'http://www.omdbapi.com/?t=' + context
-request({
-
-        url: apiUrl,
-
-        method: 'GET',
+        // context.forecast = 'sunny';
+        cb(context);
     },
-
-    function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-
-
-
-        var e = JSON.parse(response.body, (key, value) => {
-
-            if (key === 'Genre') {
-                // sendFBMessage(sender, value)
-                console.log(value)
-                context.genre =value;
-
-            }
-
-        })
-    })
-              cb(context);
-
 };
-////////////New Code ends//////////////
+
+
+
+findGenre(sessionID,context,callback){
+////////////New Code///////
+var apiUrl = 'http://www.omdbapi.com/?t=' + context
+            request({
+
+                    url: apiUrl,
+
+                    method: 'GET',
+                },
+
+                function(error, response, body) {
+                    if (error) {
+                        console.log('Error sending messages: ', error)
+                    } else if (response.body.error) {
+                        console.log('Error: ', response.body.error)
+                    }
+
+
+
+                    var e = JSON.parse(response.body, (key, value) => {
+
+                        if (key === 'Genre') {
+                            // sendFBMessage(sender, value)
+                            console.log(value)
+                            context.genre = value;
+
+                        }
+
+                    })
+                })
+                callback(context)
+}
+                ///code ends///////
+
+
+
+
+
+
+
+
+
+
+
 
 const getWit = () => {
     return new Wit(Config.WIT_TOKEN, actions);
