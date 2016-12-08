@@ -78,6 +78,7 @@ const actions = {
     },
 
 
+
     merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
         const title = firstEntityValue(entities, message);
@@ -96,7 +97,7 @@ const actions = {
     ['fetch-genre'](sessionId, context, cb) {
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
-        context.genre = findGenre(context, cb)
+        context.genre = findGenre(context.title, cb)
 
         // context.forecast = 'sunny';
         cb(context);
