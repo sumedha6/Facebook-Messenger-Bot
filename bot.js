@@ -68,7 +68,17 @@ const actions = {
             cb();
         }
     },
-    merge(sessionId, context, entities, message, cb) {
+
+    ['getGenre'](sessionId, context, cb) {
+        //  var genre = firstEntityValue(entities, 'genre');
+        context.genre = 'comedy';
+        cb(context);
+
+
+    },
+
+
+    merge(sessionId, context, cb) {
         // Retrieve the location entity and store it into a context field
         const loc = firstEntityValue(entities, 'location');
         if (loc) {
