@@ -130,6 +130,7 @@ function findGenre(context, cb) {
                     // sendFBMessage(sender, value)
                     console.log(value)
                     context.genre = value;
+                    return value;
 
                 }
 
