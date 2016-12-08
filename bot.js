@@ -69,13 +69,13 @@ const actions = {
         }
     },
 
-    // // ['getGenre'](sessionId, context, cb) {
-    // //     //  var genre = firstEntityValue(entities, 'genre');
-    // //     context.genre = 'comedy';
-    // //     cb(context);
+    ['getGenre'](sessionId, context, cb) {
+        //  var genre = firstEntityValue(entities, 'genre');
+        context.genre = findGenre(context, cb);
+        cb(context);
 
 
-    // // },
+    },
 
 
     merge(sessionId, context, entities, message, cb) {
