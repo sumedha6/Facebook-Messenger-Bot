@@ -78,7 +78,7 @@ const actions = {
     // // },
 
 
-    getGenre(sessionId, context, entities, message, cb) {
+    merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
         const title = firstEntityValue(entities, message);
         if (title) {
