@@ -31,7 +31,7 @@ const actions = {
 
     //     return context;
 
-    // },
+    // },};
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     say(sessionId, context, message, cb) {
         console.log(message);
@@ -78,7 +78,7 @@ const actions = {
     },
 
 
-    merge(sessionId, context, cb) {
+    merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
         const loc = firstEntityValue(entities, 'location');
         if (loc) {
