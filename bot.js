@@ -99,14 +99,13 @@ const actions = {
 
     // fetch-weather bot executes
     ['fetch-genre'](sessionId, context, cb) {
-      const m_genre={
+      // const m_genre={
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
-      // var apirl = 'http://www.omdbapi.com/?t=' + context
+      var apirl = 'http://www.omdbapi.com/?t=' + context
         request({
 
-                url: 'http://www.omdbapi.com/?t=' + context,
-
+                url: apirl,
                 method: 'GET',
             },
 
@@ -136,11 +135,11 @@ const actions = {
 
         // context.forecast = 'sunny';
         cb(context);
-    }
+    // }
 
-  context.genre = m_genre
+  // context.genre = value
 
-};
+}
 
 
 
