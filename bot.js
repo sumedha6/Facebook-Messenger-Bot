@@ -96,7 +96,7 @@ const actions = {
     ['fetch-weather'](sessionId, context, cb) {
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
-        findGenre(sessionID, context, callback)
+        context.genre = findGenre(sessionID, context, callback)
 
         // context.forecast = 'sunny';
         cb(context);
