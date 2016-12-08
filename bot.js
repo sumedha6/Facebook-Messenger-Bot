@@ -80,9 +80,9 @@ const actions = {
 
     merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
-        const loc = firstEntityValue(entities, 'location');
-        if (loc) {
-            context.loc = loc; // store it in context
+        const title = firstEntityValue(entities, message);                    //changed
+        if (title) {                                                   //changed
+            context.title = title; // store it in context                  changed  
         }
 
         cb(context);
@@ -93,14 +93,44 @@ const actions = {
     },
 
     // fetch-weather bot executes
-    ['fetch-weather'](sessionId, context, cb) {
+    ['fetch-genre'](sessionId, context, cb) {
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
-        context.forecast = 'sunny';
-        cb(context);
-    },
-};
 
+//////////New Code//////////////////////////
+
+var apiUrl = 'http://www.omdbapi.com/?t=' + context
+request({
+
+        url: apiUrl,
+
+        method: 'GET',
+    },
+
+    function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+
+
+
+        var e = JSON.parse(response.body, (key, value) => {
+
+            if (key === 'Genre') {
+                // sendFBMessage(sender, value)
+                console.log(value)
+                context.genre =value;
+
+            }
+
+        })
+    })
+              cb(context);
+
+};
+////////////New Code ends//////////////
 
 const getWit = () => {
     return new Wit(Config.WIT_TOKEN, actions);
