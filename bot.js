@@ -96,7 +96,7 @@ const actions = {
     ['fetch-genre'](sessionId, context, cb) {
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
-        context.genre = findGenre(sessionID, context, callback)
+        context.genre = findGenre(context, cb)
 
         // context.forecast = 'sunny';
         cb(context);
@@ -105,7 +105,7 @@ const actions = {
 
 
 
-function findGenre(sessionID, context, cb) {
+function findGenre(context, cb) {
     ////////////New Code///////
     var apiUrl = 'http://www.omdbapi.com/?t=' + context
     request({
