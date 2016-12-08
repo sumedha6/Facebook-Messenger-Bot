@@ -96,7 +96,7 @@ const actions = {
     ['fetch-weather'](sessionId, context, cb) {
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
-        findGenre(sessionID,context,callback)
+        findGenre(sessionID, context, callback)
 
         // context.forecast = 'sunny';
         cb(context);
@@ -105,39 +105,39 @@ const actions = {
 
 
 
-findGenre(sessionID,context,callback){
-////////////New Code///////
-var apiUrl = 'http://www.omdbapi.com/?t=' + context
-            request({
+function findGenre(sessionID, context, cb) {
+    ////////////New Code///////
+    var apiUrl = 'http://www.omdbapi.com/?t=' + context
+    request({
 
-                    url: apiUrl,
+            url: apiUrl,
 
-                    method: 'GET',
-                },
+            method: 'GET',
+        },
 
-                function(error, response, body) {
-                    if (error) {
-                        console.log('Error sending messages: ', error)
-                    } else if (response.body.error) {
-                        console.log('Error: ', response.body.error)
-                    }
+        function(error, response, body) {
+            if (error) {
+                console.log('Error sending messages: ', error)
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error)
+            }
 
 
 
-                    var e = JSON.parse(response.body, (key, value) => {
+            var e = JSON.parse(response.body, (key, value) => {
 
-                        if (key === 'Genre') {
-                            // sendFBMessage(sender, value)
-                            console.log(value)
-                            context.genre = value;
+                if (key === 'Genre') {
+                    // sendFBMessage(sender, value)
+                    console.log(value)
+                    context.genre = value;
 
-                        }
+                }
 
-                    })
-                })
-                callback(context)
+            })
+        })
+    cb(context);
 }
-                ///code ends///////
+///code ends///////
 
 
 
