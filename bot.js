@@ -69,16 +69,14 @@ const actions = {
         }
     },
 
-    ['getGenre'](sessionId, context, cb) {
+    ['getGenre'](sessionId, context,entities, message, cb) {
         //  var genre = firstEntityValue(entities, 'genre');
-        context.genre = findGenre(context, cb);
+        context.genre = findGenre(message, cb);
         cb(context);
+},
 
 
-    },
-
-
-    merge(sessionId, context, entities, message, cb) {
+    merge(sessionId, context,  cb) {
         // Retrieve the location entity and store it into a context field
         const title = firstEntityValue(entities, message);
         if (title) {
@@ -96,7 +94,7 @@ const actions = {
     ['fetch-genre'](sessionId, context, cb) {
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
-        context.genre = findGenre(context, cb)
+        context.genre = findGenre(message, cb)
 
         // context.forecast = 'sunny';
         cb(context);
@@ -105,21 +103,11 @@ const actions = {
 
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-findGenre(sessionID,context,callback) {
-////////////New Code///////
-var apiUrl = 'http://www.omdbapi.com/?t=' + context
-            request({
-=======
-function findGenre(sessionID, context, cb) {
-=======
-function findGenre(context, cb) {
->>>>>>> eb3aa247db2a8b1452ef384eefeffa746d4d1240
+
+function findGenre(message, cb) {
     ////////////New Code///////
-    var apiUrl = 'http://www.omdbapi.com/?t=' + context
+    var apiUrl = 'http://www.omdbapi.com/?t=' + message
     request({
->>>>>>> 5dba515f622e8b3f0cf3c4c314866a9d9ea2b96c
 
             url: apiUrl,
 
@@ -147,7 +135,7 @@ function findGenre(context, cb) {
 
             })
         })
-    cb(context);
+    cb(message);
 }
 ///code ends///////
 
