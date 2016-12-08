@@ -71,7 +71,7 @@ const actions = {
 
     ['getGenre'](sessionId, context, cb) {
         //  var genre = firstEntityValue(entities, 'genre');
-        context.genre = 'comedy';
+        context.genre = findGenre(context, cb);
         cb(context);
 
 
@@ -81,7 +81,7 @@ const actions = {
     merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
         const title = firstEntityValue(entities, message);
-        if (loc) {
+        if (title) {
             context.title = title; // store it in context
         }
 
@@ -141,6 +141,7 @@ function findGenre(context, cb) {
                     // sendFBMessage(sender, value)
                     console.log(value)
                     context.genre = value;
+                    return value;
 
                 }
 
