@@ -105,7 +105,7 @@ const actions = {
 
 
 
-findGenre(sessionID,context,callback){
+findGenre(sessionID,context,callback) {
 ////////////New Code///////
 var apiUrl = 'http://www.omdbapi.com/?t=' + context
             request({
