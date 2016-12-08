@@ -69,14 +69,18 @@ const actions = {
         }
     },
 
-    ['getGenre'](sessionId, context,entities, message, cb) {
-        //  var genre = firstEntityValue(entities, 'genre');
-        context.genre = findGenre(message, cb);
-        cb(context);
-},
+//     ['getGenre'](sessionId, context,entities, message, cb) {
+//         //  var genre = firstEntityValue(entities, 'genre');
+//         context.genre = findGenre(message, cb);
+//         cb(context);
+// },
 
 
-    merge(sessionId, context,  cb) {
+
+
+
+
+    merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
         const title = firstEntityValue(entities, message);
         if (title) {
@@ -90,53 +94,90 @@ const actions = {
         console.log(error.message);
     },
 
+
+
+
     // fetch-weather bot executes
     ['fetch-genre'](sessionId, context, cb) {
+      const m_genre={
         // Here should go the api call, e.g.:
         // context.forecast = apiCall(context.loc)
-        context.genre = findGenre(message, cb)
+      // var apirl = 'http://www.omdbapi.com/?t=' + context
+        request({
+
+                url: 'http://www.omdbapi.com/?t=' + context,
+
+                method: 'GET',
+            },
+
+            function(error, response, body) {
+                if (error) {
+                    console.log('Error sending messages: ', error)
+                } else if (response.body.error) {
+                    console.log('Error: ', response.body.error)
+                }
+
+
+
+                var e = JSON.parse(response.body, (key, value) => {
+
+                    if (key === 'Genre') {
+                        // sendFBMessage(sender, value)
+                        console.log(value)
+                        context.genre = value;
+                        return value;
+
+                    }
+
+                })
+            })
+        // cb(message);
+
 
         // context.forecast = 'sunny';
         cb(context);
-    },
+    }
+
+  context.genre = m_genre
+
 };
 
 
 
 
-function findGenre(message, cb) {
-    ////////////New Code///////
-    var apiUrl = 'http://www.omdbapi.com/?t=' + message
-    request({
-
-            url: apiUrl,
-
-            method: 'GET',
-        },
-
-        function(error, response, body) {
-            if (error) {
-                console.log('Error sending messages: ', error)
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error)
-            }
-
-
-
-            var e = JSON.parse(response.body, (key, value) => {
-
-                if (key === 'Genre') {
-                    // sendFBMessage(sender, value)
-                    console.log(value)
-                    context.genre = value;
-                    return value;
-
-                }
-
-            })
-        })
-    cb(message);
-}
+// function findGenre(message, cb) {
+//     ////////////New Code///////
+//     var apiUrl = 'http://www.omdbapi.com/?t=' + message
+//     request({
+//
+//             url: apiUrl,
+//
+//             method: 'GET',
+//         },
+//
+//         function(error, response, body) {
+//             if (error) {
+//                 console.log('Error sending messages: ', error)
+//             } else if (response.body.error) {
+//                 console.log('Error: ', response.body.error)
+//             }
+//
+//
+//
+//             var e = JSON.parse(response.body, (key, value) => {
+//
+//                 if (key === 'Genre') {
+//                     // sendFBMessage(sender, value)
+//                     console.log(value)
+//                     context.genre = value;
+//                     return value;
+//
+//                 }
+//
+//             })
+//         })
+//     cb(message);
+// }
 ///code ends///////
 
 
