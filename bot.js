@@ -70,19 +70,18 @@ const actions = {
 
     merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
-        const title = firstEntityValue(entities, 'title');
+
+//         const title = firstEntityValue(entities, 'title');
+        const title = firstEntityValue(entities, 'movie_title');
         if (title) {
             context.title= title; // store it in context
         }
 
         cb(context);
     },
-
     error(sessionId, context, error) {
         console.log(error.message);
     },
-
-
 
 
     // fetch-weather bot executes
@@ -122,7 +121,13 @@ const actions = {
         //         })
         //
         // };
+        // Here should go the api call, e.g.:
+        // context.forecast = apiCall(context.loc)
 
+        // // // // // // // //////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        // // // // // // // var movieGenre = function getGenre() {
+        // // // // // // //     //   var title = firstEntityValue(entities, "title")
 
         // var a=  getGenre(context,cb)
          getGenre(context,cb)
@@ -135,41 +140,130 @@ const actions = {
 
 };
 function getGenre(context,cb){
-//
 
 
-var apirl = 'http://www.omdbapi.com/?t=' + context.title
+  var apiUrl = 'http://www.omdbapi.com/?t=' + text
+  request({
 
+          url: apiUrl,
 
-     request({
+          method: 'GET',
+      },
 
-             url: apirl,
-
-             method: 'GET',
-         },
-
-         function(error, response, body) {
-             if (error) {
-                 console.log('Error sending messages: ', error)
-             } else if (response.body.error) {
-                 console.log('Error: ', response.body.error)
-             }
+      function(error, response, body) {
+          if (error) {
+              console.log('Error sending messages: ', error)
+          } else if (response.body.error) {
+              console.log('Error: ', response.body.error)
+          }
 
 
 
-             var e = JSON.parse(response.body, (key, value) => {
+          var e = JSON.parse(response.body, (key, value) => {
+            context.genre = 'sunny ' + context.title;
+            cb(context);
 
-                 if (key === 'Genre') {
-                     console.log(value)
-                     context.genre = value;
-                     return value;
+              if (key === 'Genre') {
+                  console.log(value)
+                  context.genre = value;
+                  return value;
 
-                 }
+              }
 
-             })
-         })
+          })
+      })
 
 }
+
+
+    // fetch-weather bot executes
+    // ['fetch-genre'](sessionId, context, entities, cb) {
+
+
+    //     var movieGenre = function getGenre(context) {
+    //         var title = firstEntityValue(entities, "title")
+
+    //         var apirl = 'http://www.omdbapi.com/?t=' + title;
+
+
+    //         request({
+
+    //                 url: apirl,
+
+    //                 method: 'GET',
+    //             },
+
+    //             function(error, response, body) {
+    //                 if (error) {
+    //                     console.log('Error sending messages: ', error)
+    //                 } else if (response.body.error) {
+    //                     console.log('Error: ', response.body.error)
+    //                 }
+
+
+
+    //                 var e = JSON.parse(response.body, (key, value) => {
+
+    //                     if (key === 'Genre') {
+    //                         console.log(value)
+    //                         context.genre = value;
+    //                         return value;
+
+    //                     }
+
+    //                 })
+
+
+    //             })
+
+    //     };
+
+
+    //     // var a=  getGenre(context,cb)
+    //     context.genre = movieGenre(context);
+    //     cb(context);
+    // }
+
+
+
+
+// function getGenre(context,cb){
+//
+//
+//
+// var apirl = 'http://www.omdbapi.com/?t=' + context.title
+//
+//
+//      request({
+//
+//              url: apirl,
+//
+//              method: 'GET',
+//          },
+//
+//          function(error, response, body) {
+//              if (error) {
+//                  console.log('Error sending messages: ', error)
+//              } else if (response.body.error) {
+//                  console.log('Error: ', response.body.error)
+//              }
+//
+//
+//
+//              var e = JSON.parse(response.body, (key, value) => {
+//
+//                  if (key === 'Genre') {
+//                      console.log(value)
+//                      context.genre = value;
+//                      return value;
+//
+//                  }
+//
+//              })
+//          })
+//
+// }
+
 
 const getWit = () => {
     return new Wit(Config.WIT_TOKEN, actions);
@@ -184,3 +278,49 @@ if (require.main === module) {
     const client = getWit();
     client.interactive();
 }
+
+
+
+
+
+
+
+
+///////////////Paste///////////
+// var apirl = 'http://www.omdbapi.com/?t=' + context.title
+//
+//
+//      request({
+//
+//              url: apirl,
+//
+//              method: 'GET',
+//          },
+//
+//          function(error, response, body) {
+//              if (error) {
+//                  console.log('Error sending messages: ', error)
+//              } else if (response.body.error) {
+//                  console.log('Error: ', response.body.error)
+//              }
+//
+//
+//
+//              var e = JSON.parse(response.body, (key, value) => {
+//
+//
+//         context.genre = 'sunny ' + context.title;
+//         cb(context);
+//
+//
+//                  if (key === 'Genre') {
+//                      console.log(value)
+//                      context.genre = value;
+//                      return value;
+//
+//                  }}
+//
+//              })
+//          })
+//
+// }
