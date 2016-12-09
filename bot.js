@@ -72,7 +72,7 @@ const actions = {
         // Retrieve the location entity and store it into a context field
 
 //         const title = firstEntityValue(entities, 'title');
-        const title = firstEntityValue(entities, 'movie_title');
+        const title = firstEntityValue(entities, 'title');
         if (title) {
             context.title= title; // store it in context
         }
@@ -86,50 +86,7 @@ const actions = {
 
     // fetch-weather bot executes
     ['fetch-genre'](sessionId, context, cb) {
-        // var movieGenre = function getGenre(context) {
-        //     var apirl = 'http://www.omdbapi.com/?t=queen' //+ context.title;
-        //
-        //
-        //     request({
-        //
-        //             url: apirl,
-        //
-        //             method: 'GET',
-        //         },
-        //
-        //         function(error, response, body) {
-        //             if (error) {
-        //                 console.log('Error sending messages: ', error)
-        //             } else if (response.body.error) {
-        //                 console.log('Error: ', response.body.error)
-        //             }
-        //
-        //
-        //
-        //             var e = JSON.parse(response.body, (key, value) => {
-        //
-        //                 if (key === 'Genre') {
-        //                     console.log(value)
-        //                     context.genre = value;
-        //                     return value;
-        //
-        //                 }
-        //
-        //             })
-        //
-        //
-        //         })
-        //
-        // };
-        // Here should go the api call, e.g.:
-        // context.forecast = apiCall(context.loc)
 
-        // // // // // // // //////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-        // // // // // // // var movieGenre = function getGenre() {
-        // // // // // // //     //   var title = firstEntityValue(entities, "title")
-
-        // var a=  getGenre(context,cb)
          getGenre(context,cb)
 
         context.genre = movieGenre(context);
@@ -142,7 +99,7 @@ const actions = {
 function getGenre(context,cb){
 
 
-  var apiUrl = 'http://www.omdbapi.com/?t=' + text
+  var apiUrl = 'http://www.omdbapi.com/?t=' + context
   request({
 
           url: apiUrl,
@@ -176,93 +133,6 @@ function getGenre(context,cb){
 }
 
 
-    // fetch-weather bot executes
-    // ['fetch-genre'](sessionId, context, entities, cb) {
-
-
-    //     var movieGenre = function getGenre(context) {
-    //         var title = firstEntityValue(entities, "title")
-
-    //         var apirl = 'http://www.omdbapi.com/?t=' + title;
-
-
-    //         request({
-
-    //                 url: apirl,
-
-    //                 method: 'GET',
-    //             },
-
-    //             function(error, response, body) {
-    //                 if (error) {
-    //                     console.log('Error sending messages: ', error)
-    //                 } else if (response.body.error) {
-    //                     console.log('Error: ', response.body.error)
-    //                 }
-
-
-
-    //                 var e = JSON.parse(response.body, (key, value) => {
-
-    //                     if (key === 'Genre') {
-    //                         console.log(value)
-    //                         context.genre = value;
-    //                         return value;
-
-    //                     }
-
-    //                 })
-
-
-    //             })
-
-    //     };
-
-
-    //     // var a=  getGenre(context,cb)
-    //     context.genre = movieGenre(context);
-    //     cb(context);
-    // }
-
-
-
-
-// function getGenre(context,cb){
-//
-//
-//
-// var apirl = 'http://www.omdbapi.com/?t=' + context.title
-//
-//
-//      request({
-//
-//              url: apirl,
-//
-//              method: 'GET',
-//          },
-//
-//          function(error, response, body) {
-//              if (error) {
-//                  console.log('Error sending messages: ', error)
-//              } else if (response.body.error) {
-//                  console.log('Error: ', response.body.error)
-//              }
-//
-//
-//
-//              var e = JSON.parse(response.body, (key, value) => {
-//
-//                  if (key === 'Genre') {
-//                      console.log(value)
-//                      context.genre = value;
-//                      return value;
-//
-//                  }
-//
-//              })
-//          })
-//
-// }
 
 
 const getWit = () => {
@@ -278,49 +148,3 @@ if (require.main === module) {
     const client = getWit();
     client.interactive();
 }
-
-
-
-
-
-
-
-
-///////////////Paste///////////
-// var apirl = 'http://www.omdbapi.com/?t=' + context.title
-//
-//
-//      request({
-//
-//              url: apirl,
-//
-//              method: 'GET',
-//          },
-//
-//          function(error, response, body) {
-//              if (error) {
-//                  console.log('Error sending messages: ', error)
-//              } else if (response.body.error) {
-//                  console.log('Error: ', response.body.error)
-//              }
-//
-//
-//
-//              var e = JSON.parse(response.body, (key, value) => {
-//
-//
-//         context.genre = 'sunny ' + context.title;
-//         cb(context);
-//
-//
-//                  if (key === 'Genre') {
-//                      console.log(value)
-//                      context.genre = value;
-//                      return value;
-//
-//                  }}
-//
-//              })
-//          })
-//
-// }
