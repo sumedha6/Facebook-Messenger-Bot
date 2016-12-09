@@ -2,6 +2,7 @@
 
 // Weather Example
 // See https://wit.ai/sungkim/weather/stories and https://wit.ai/docs/quickstart
+const requird=require('./node_modules/request/request.js')
 const Wit = require('node-wit').Wit;
 const FB = require('./facebook.js');
 const Config = require('./const.js');
@@ -46,6 +47,7 @@ const actions = {
                         'Oops! An error occurred while forwarding the response to',
                         recipientId,
                         ':',
+
                         err
                     );
                 }
@@ -68,7 +70,7 @@ const actions = {
 
     merge(sessionId, context, entities, message, cb) {
         // Retrieve the location entity and store it into a context field
-        const title = firstEntityValue(entities, 'wit_name');
+        const title = firstEntityValue(entities, 'title');
         if (title) {
             context.title= title; // store it in context
         }
@@ -84,50 +86,47 @@ const actions = {
 
 
     // fetch-weather bot executes
-<<<<<<< HEAD
-     ['fetch-genre'] (sessionId, context, cb) {
-       var apirl = 'http://www.omdbapi.com/?t='+context.title
-=======
     ['fetch-genre'](sessionId, context, cb) {
-        var movieGenre = function getGenre(context) {
-            var apirl = 'http://www.omdbapi.com/?t=' + context.title;
->>>>>>> 2a1d5d565ac6922080466fddffec28892057a6f9
-
-
-            request({
-
-                    url: apirl,
-
-                    method: 'GET',
-                },
-
-                function(error, response, body) {
-                    if (error) {
-                        console.log('Error sending messages: ', error)
-                    } else if (response.body.error) {
-                        console.log('Error: ', response.body.error)
-                    }
-
-
-
-                    var e = JSON.parse(response.body, (key, value) => {
-
-                        if (key === 'Genre') {
-                            console.log(value)
-                            context.genre = value;
-                            return value;
-
-                        }
-
-                    })
-
-
-                })
-
-        };
+        // var movieGenre = function getGenre(context) {
+        //     var apirl = 'http://www.omdbapi.com/?t=queen' //+ context.title;
+        //
+        //
+        //     request({
+        //
+        //             url: apirl,
+        //
+        //             method: 'GET',
+        //         },
+        //
+        //         function(error, response, body) {
+        //             if (error) {
+        //                 console.log('Error sending messages: ', error)
+        //             } else if (response.body.error) {
+        //                 console.log('Error: ', response.body.error)
+        //             }
+        //
+        //
+        //
+        //             var e = JSON.parse(response.body, (key, value) => {
+        //
+        //                 if (key === 'Genre') {
+        //                     console.log(value)
+        //                     context.genre = value;
+        //                     return value;
+        //
+        //                 }
+        //
+        //             })
+        //
+        //
+        //         })
+        //
+        // };
 
 
         // var a=  getGenre(context,cb)
+         getGenre(context,cb)
+
         context.genre = movieGenre(context);
         cb(context);
     }
@@ -135,42 +134,42 @@ const actions = {
 
 
 };
-// function getGenre(context,cb){
+function getGenre(context,cb){
 //
-//
-//
-// var apirl = 'http://www.omdbapi.com/?t=' + context.title
-//
-//
-//      request({
-//
-//              url: apirl,
-//
-//              method: 'GET',
-//          },
-//
-//          function(error, response, body) {
-//              if (error) {
-//                  console.log('Error sending messages: ', error)
-//              } else if (response.body.error) {
-//                  console.log('Error: ', response.body.error)
-//              }
-//
-//
-//
-//              var e = JSON.parse(response.body, (key, value) => {
-//
-//                  if (key === 'Genre') {
-//                      console.log(value)
-//                      context.genre = value;
-//                      return value;
-//
-//                  }
-//
-//              })
-//          })
-//
-// }
+
+
+var apirl = 'http://www.omdbapi.com/?t=' + context.title
+
+
+     request({
+
+             url: apirl,
+
+             method: 'GET',
+         },
+
+         function(error, response, body) {
+             if (error) {
+                 console.log('Error sending messages: ', error)
+             } else if (response.body.error) {
+                 console.log('Error: ', response.body.error)
+             }
+
+
+
+             var e = JSON.parse(response.body, (key, value) => {
+
+                 if (key === 'Genre') {
+                     console.log(value)
+                     context.genre = value;
+                     return value;
+
+                 }
+
+             })
+         })
+
+}
 
 const getWit = () => {
     return new Wit(Config.WIT_TOKEN, actions);
