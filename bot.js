@@ -2,7 +2,7 @@
 
 // Weather Example
 // See https://wit.ai/sungkim/weather/stories and https://wit.ai/docs/quickstart
-const requird=require('./node_modules/request/request.js')
+const request=require('request')
 const Wit = require('node-wit').Wit;
 const FB = require('./facebook.js');
 const Config = require('./const.js');
@@ -72,7 +72,7 @@ const actions = {
         // Retrieve the location entity and store it into a context field
 
 //         const title = firstEntityValue(entities, 'title');
-        const title = firstEntityValue(entities, 'title');
+        const title = firstEntityValue(entities, 'movie_title');
         if (title) {
             context.title= title; // store it in context
         }
@@ -86,51 +86,39 @@ const actions = {
 
     // fetch-weather bot executes
     ['fetch-genre'](sessionId, context, cb) {
-
-         getGenre(context,cb)
-
-        context.genre = movieGenre(context);
-        cb(context);
-    }
-
-
-
-};
-function getGenre(context,cb){
-
-
-  var apiUrl = 'http://www.omdbapi.com/?t=' + context
-  request({
-
-          url: apiUrl,
-
-          method: 'GET',
-      },
-
-      function(error, response, body) {
-          if (error) {
-              console.log('Error sending messages: ', error)
-          } else if (response.body.error) {
-              console.log('Error: ', response.body.error)
-          }
-
-
-
-          var e = JSON.parse(response.body, (key, value) => {
-            context.genre = 'sunny ' + context.title;
-            cb(context);
-
-              if (key === 'Genre') {
-                  console.log(value)
-                  context.genre = value;
-                  return value;
-
+     var e=context.title
+     console.log(e)
+     var url='http://www.omdbapi.com/?t='+context.title
+     request({
+       url:url,
+       method:'GET'
+     },
+     function(error, response, body) {
+              if (error) {
+                  console.log('Error sending messages: ', error)
+              } else if (response.body.error) {
+                  console.log('Error: ', response.body.error)
               }
 
-          })
-      })
+              var result=JSON.parse(response.body, (key, value) => {
+                            if (key === 'Genre') {
+                                              console.log(value)
+                                              context.genre = value;
+                                              return value;
+}
+              })
+
+
+        // console.log('hi')
+        cb(context);
+    })
 
 }
+
+};
+
+
+
 
 
 
