@@ -48,8 +48,8 @@ const quick = (recipientId, msg, cb) => {
                 text: "Pick a color:",
                 quick_replies: [{
                     content_type: "text",
-                    title: "Red",
-                    payload: "DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+                    title: "Plot",
+                    payload: msg
                 }, ]
             }
         }
