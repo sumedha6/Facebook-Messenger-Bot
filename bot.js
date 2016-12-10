@@ -83,36 +83,6 @@ const actions = {
     },
 
 
-    // fetch-weather bot executes
-    ['fetch-genre'](sessionId, context, cb) {
-        var e = context.title
-        console.log(e)
-        var url = 'http://www.omdbapi.com/?t=' + context.title
-        request({
-                url: url,
-                method: 'GET'
-            },
-            function(error, response, body) {
-                if (error) {
-                    console.log('Error sending messages: ', error)
-                } else if (response.body.error) {
-                    console.log('Error: ', response.body.error)
-                }
-
-                var result = JSON.parse(response.body, (key, value) => {
-                    if (key === 'Genre') {
-                        console.log(value)
-                        context.genre = value;
-                        return value;
-                    }
-                })
-
-
-                // console.log('hi')
-                cb(context);
-            })
-
-    },
 
     ['fetch-plot'](sessionId, context, cb) {
         var e = context.title
@@ -142,7 +112,39 @@ const actions = {
                 cb(context);
             })
 
-    }
+    },
+    // fetch-weather bot executes
+    ['fetch-genre'](sessionId, context, cb) {
+        var f = context.title
+        console.log(f)
+        var url = 'http://www.omdbapi.com/?t=' + context.title
+        request({
+                url: url,
+                method: 'GET'
+            },
+            function(error, response, body) {
+                if (error) {
+                    console.log('Error sending messages: ', error)
+                } else if (response.body.error) {
+                    console.log('Error: ', response.body.error)
+                }
+
+                var result = JSON.parse(response.body, (key, value) => {
+                    if (key === 'Genre') {
+                        console.log(value)
+                        context.genre = value;
+                        return value;
+                    }
+                })
+
+
+                // console.log('hi')
+                cb(context);
+            })
+
+    },
+
+
 
 };
 
