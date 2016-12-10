@@ -39,62 +39,63 @@ const fbMessage = (recipientId, msg, cb) => {
 
 
 const quick = (recipientId, msg, cb) => {
-    const reply = {
-        form: {
-            recipient: {
-                id: recipientId,
-            },
-            message: {
-                text: "Pick a color:",
-                quick_replies: [{
-                    content_type: "text",
-                    title: "Plot",
-                    payload: msg
-                }, {
-                    content_type: "text",
-                    title: "Genre",
-                    payload: msg
+        const reply = {
+            form: {
+                recipient: {
+                    id: recipientId,
+                },
+                message: {
+                    text: "Pick a color:",
+                    quick_replies: [{
+                            content_type: "text",
+                            title: "Plot",
+                            payload: msg
+                                // }, {
+                                //     content_type: "text",
+                                //     title: "Genre",
+                                //     payload: msg
 
-                }, ]
-            }
-        }
-    };
+                            // }, 
+                        ]
+                    }
+                }
+            };
 
-    fbReq(reply, (err, resp, data) => {
-        if (cb) {
-            cb(err || data.error && data.error.message, data);
-        }
-    });
-};
-
-
-// See the Webhook reference
-// https://developers.facebook.com/docs/messenger-platform/webhook-reference
-const getFirstMessagingEntry = (body) => {
-    const val = body.object === 'page' &&
-        body.entry &&
-        Array.isArray(body.entry) &&
-        body.entry.length > 0 &&
-        body.entry[0] &&
-        body.entry[0].messaging &&
-        Array.isArray(body.entry[0].messaging) &&
-        body.entry[0].messaging.length > 0 &&
-        body.entry[0].messaging[0];
-
-    return val || null;
-};
+            fbReq(reply, (err, resp, data) => {
+                if (cb) {
+                    cb(err || data.error && data.error.message, data);
+                }
+            });
+        };
 
 
+        // See the Webhook reference
+        // https://developers.facebook.com/docs/messenger-platform/webhook-reference
+        const getFirstMessagingEntry = (body) => {
+            const val = body.object === 'page' &&
+                body.entry &&
+                Array.isArray(body.entry) &&
+                body.entry.length > 0 &&
+                body.entry[0] &&
+                body.entry[0].messaging &&
+                Array.isArray(body.entry[0].messaging) &&
+                body.entry[0].messaging.length > 0 &&
+                body.entry[0].messaging[0];
 
-module.exports = {
-    getFirstMessagingEntry: getFirstMessagingEntry,
-    fbMessage: fbMessage,
-    fbReq: fbReq
-};
+            return val || null;
+        };
 
-module.exports = {
-    getFirstMessagingEntry: getFirstMessagingEntry,
-    fbMessage: fbMessage,
-    quick: quick,
-    fbReq: fbReq
-};
+
+
+        module.exports = {
+            getFirstMessagingEntry: getFirstMessagingEntry,
+            fbMessage: fbMessage,
+            fbReq: fbReq
+        };
+
+        module.exports = {
+            getFirstMessagingEntry: getFirstMessagingEntry,
+            fbMessage: fbMessage,
+            quick: quick,
+            fbReq: fbReq
+        };
