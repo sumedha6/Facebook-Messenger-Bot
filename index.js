@@ -90,7 +90,7 @@ app.post('/webhook', (req, res) => {
         const sessionId = findOrCreateSession(sender);
 
         // We retrieve the message content
-        const quick_reply = messaging.message.quick_replies.payload;
+        const quick_reply = messaging.message.quick_replies;
         const msg = messaging.message.text;
         const atts = messaging.message.attachments;
 
