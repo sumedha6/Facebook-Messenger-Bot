@@ -50,6 +50,11 @@ const quick = (recipientId, msg, cb) => {
                     content_type: "text",
                     title: "Plot",
                     payload: msg
+                }, {
+                    content_type: "text",
+                    title: "Genre",
+                    payload: msg
+
                 }, ]
             }
         }
