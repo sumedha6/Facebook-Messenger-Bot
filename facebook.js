@@ -38,6 +38,33 @@ const fbMessage = (recipientId, msg, cb) => {
 };
 
 
+const quick =(recipientId, msg, cb) => {
+  const reply={
+    form: {
+      recipient: {
+        id: recipientId,
+      },
+      message:{
+        text:"Pick a color:",
+        quick_replies:[
+          {
+            content_type:"text",
+            title:"Red",
+            payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+          },
+        ]
+      }
+    }
+  };
+
+  fbReq(reply, (err, resp, data) => {
+    if (cb) {
+      cb(err || data.error && data.error.message, data);
+            }
+          });
+        };
+
+
 // See the Webhook reference
 // https://developers.facebook.com/docs/messenger-platform/webhook-reference
 const getFirstMessagingEntry = (body) => {
@@ -55,8 +82,15 @@ const getFirstMessagingEntry = (body) => {
 };
 
 
+
 module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
+  fbReq: fbReq
+};
+
+module.exports = {
+  getFirstMessagingEntry: getFirstMessagingEntry,
+  fbMessage: quick,
   fbReq: fbReq
 };
