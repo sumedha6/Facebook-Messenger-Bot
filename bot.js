@@ -58,20 +58,20 @@ const actions = {
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            FB.quick(recipientId, message, (err, data) => {
-                if (err) {
-                    console.log(
-                        'Oops! An error occurred while forwarding the response to',
-                        recipientId,
-                        ':',
+            // FB.quick(recipientId, message, (err, data) => {
+            //     if (err) {
+            //         console.log(
+            //             'Oops! An error occurred while forwarding the response to',
+            //             recipientId,
+            //             ':',
 
-                        err
-                    );
-                }
+            //             err
+            //         );
+            //     }
 
-                // Let's give the wheel back to our bot
-                cb();
-            });
+            //     // Let's give the wheel back to our bot
+            //     cb();
+            // });
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////
 
