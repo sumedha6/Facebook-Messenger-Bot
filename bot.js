@@ -61,7 +61,7 @@ const actions = {
             FB.quick(recipientId, message, (err, data) => {
                 if (err) {
                     console.log(
-                        'Oops! An error occurred while forwarding the response to',
+                        'Oops! An error occurred while forwarding the response to (FB.quick)',
                         recipientId,
                         ':',
 
