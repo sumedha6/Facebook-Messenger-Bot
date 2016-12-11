@@ -45,27 +45,26 @@ const quick = (recipientId, msg, cb) => {
                 id: recipientId,
             },
             message: {
-                text: "Pick a color:",
+                text: "How can I help you:",
                 quick_replies: [{
-                        content_type: "text",
-                        title: "Plot",
-                        payload: msg
-                    }, {
-                        content_type: "text",
-                        title: "Genre",
-                        payload: msg
+                    content_type: "text",
+                    title: "Plot",
+                    payload: msg
+                }, {
+                    content_type: "text",
+                    title: "Genre",
+                    payload: msg
 
-                    },
-                }]
+                }, ]
+            }
         }
-    }
-};
+    };
 
-fbReq(reply, (err, resp, data) => {
-    if (cb) {
-        cb(err || data.error && data.error.message, data);
-    }
-});
+    fbReq(reply, (err, resp, data) => {
+        if (cb) {
+            cb(err || data.error && data.error.message, data);
+        }
+    });
 };
 
 
