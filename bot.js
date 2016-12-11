@@ -1,4 +1,24 @@
+'use strict';
 
+// Weather Example
+// See https://wit.ai/sungkim/weather/stories and https://wit.ai/docs/quickstart
+const Wit = require('node-wit').Wit;
+const FB = require('./facebook.js');
+const request = require('request');
+const Config = require('./const.js');
+
+const firstEntityValue = (entities, entity) => {
+    const val = entities && entities[entity] &&
+        Array.isArray(entities[entity]) &&
+        entities[entity].length > 0 &&
+        entities[entity][0].value;
+    if (!val) {
+        return null;
+    }
+    return typeof val === 'object' ? val.value : val;
+};
+
+// Bot actions
 // var apirl = 'http://www.omdbapi.com/?t=' + context
 
 const actions = {

@@ -92,7 +92,7 @@ module.exports = {
     fbReq: fbReq
 };
 
-module.exports = {
+    module.exports = {
     getFirstMessagingEntry: getFirstMessagingEntry,
     fbMessage: fbMessage,
     quick: quick,
