@@ -6,7 +6,7 @@ const request = require('request');
 const Config = require('./const.js');
 
 const fbReq = request.defaults({
-    uri: 'https://graph.facebook.com/me/messages',
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
     method: 'POST',
     json: true,
     qs: {
@@ -89,12 +89,5 @@ const getFirstMessagingEntry = (body) => {
 module.exports = {
     getFirstMessagingEntry: getFirstMessagingEntry,
     fbMessage: fbMessage,
-    fbReq: fbReq
-};
-
-    module.exports = {
-    getFirstMessagingEntry: getFirstMessagingEntry,
-    fbMessage: fbMessage,
-    quick: quick,
     fbReq: fbReq
 };
