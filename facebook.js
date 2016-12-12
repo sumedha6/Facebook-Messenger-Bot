@@ -17,6 +17,17 @@ const fbReq = request.defaults({
     },
 });
 
+const fbQuickReq = request.defaults({
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    method: 'POST',
+    json: true,
+    qs: {
+        access_token: Config.FB_PAGE_TOKEN
+    },
+    headers: {
+        'Content-Type': 'application/json'
+    },
+});
 
 const fbMessage = (recipientId, msg, cb) => {
     const opts = {
@@ -60,7 +71,7 @@ const quick = (recipientId, msg, cb) => {
         }
     };
 
-    fbReq(reply, (err, resp, data) => {
+    fbQuickReq(reply, (err, resp, data) => {
         if (cb) {
             cb(err || data.error && data.error.message, data);
         }
@@ -89,5 +100,6 @@ const getFirstMessagingEntry = (body) => {
 module.exports = {
     getFirstMessagingEntry: getFirstMessagingEntry,
     fbMessage: fbMessage,
-    fbReq: fbReq
+    fbReq: fbReq,
+    fbQuickReq: fbQuickReq,
 };
