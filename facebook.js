@@ -64,7 +64,7 @@ const quick = (recipientId, msg, cb) => {
                 }, {
                     content_type: "text",
                     title: "Genre",
-                    payload: msg
+                    payload: "msg"
 
                 }, ]
             }
