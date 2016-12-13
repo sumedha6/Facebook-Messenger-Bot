@@ -60,11 +60,11 @@ const quick = (recipientId, msg, cb) => {
                 quick_replies: [{
                     content_type: "text",
                     title: "Plot",
-                    payload: msg
+                    //payload: msg
                 }, {
                     content_type: "text",
                     title: "Genre",
-                    payload: "msg"
+                    // payload: "msg"
 
                 }, ]
             }
