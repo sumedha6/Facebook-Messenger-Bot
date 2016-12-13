@@ -47,7 +47,7 @@ const actions = {
                 }
 
                 i = i + 1;
-                if (i == 2) cb();
+                //            if (i == 2) cb();
             });
 
             FB.quick(recipientId, message, (err, data) => {
