@@ -56,7 +56,7 @@ const quick = (recipientId, msg, cb) => {
                 id: recipientId,
             },
             message: {
-                text: null,
+                text: ' ',
                 quick_replies: [{
                     content_type: "text",
                     title: "Plot",
