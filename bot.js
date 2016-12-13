@@ -36,41 +36,29 @@ const actions = {
         // Our bot has something to say!
         // Let's retrieve the Facebook user whose session belongs to from context
         // TODO: need to get Facebook user name
+        const forwardingHandler = (err, data) => {
+            if (err) {
+                console.log(
+                    'Oops! An error occurred while forwarding the response to',
+                    recipientId,
+                    ':',
+
+                    err
+                );
+            }
+
+            // Let's give the wheel back to our bot
+            cb();
+        };
         const recipientId = context._fbid_;
         if (recipientId) {
             // Yay, we found our recipient!
             // Let's forward our bot response to her.
-            FB.fbMessage(recipientId, message, (err, data) => {
-                if (err) {
-                    console.log(
-                        'Oops! An error occurred while forwarding the response to',
-                        recipientId,
-                        ':',
+            FB.fbMessage(recipientId, message, forwardingHandler);
 
-                        err
-                    );
-                }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////// 
 
-                // Let's give the wheel back to our bot
-                cb();
-            });
-
-            /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            FB.quick(recipientId, message, (err, data) => {
-                if (err) {
-                    console.log(
-                        'Oops! An error occurred while forwarding the response to (FB.quick)',
-                        recipientId,
-                        ':',
-
-                        err
-                    );
-                }
-
-                // Let's give the wheel back to our bot
-                cb();
-            });
+            //    FB.quick(recipientId, message, forwardingHandler);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////
 
