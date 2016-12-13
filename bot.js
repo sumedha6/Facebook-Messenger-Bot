@@ -57,7 +57,7 @@ const actions = {
                     console.log(
                         '(fbMessage)Oops! An error occurred while forwarding the response to',
                         recipientId,
-                        ':',
+                        ':', message,
 
                         err
                     );
