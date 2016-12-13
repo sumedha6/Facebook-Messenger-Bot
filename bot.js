@@ -26,6 +26,7 @@ const actions = {
 
     say(sessionId, context, message, cb) {
         console.log(message);
+        console.log("context: ", context);
 
         // Bot testing mode, run cb() and return
         if (require.main === module) {
