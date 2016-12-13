@@ -33,7 +33,7 @@ const actions = {
             return;
         }
         const recipientId = context._fbid_;
-        if (recipientId && (context.feature === 'plot' || context.feature === 'genre')) {
+        if (recipientId) {
             const sendFBQuick = () => {
                 FB.quick(recipientId, message, (err, data) => {
                     if (err) {
