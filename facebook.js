@@ -102,4 +102,5 @@ module.exports = {
     fbMessage: fbMessage,
     fbReq: fbReq,
     fbQuickReq: fbQuickReq,
+    quick: quick,
 };
