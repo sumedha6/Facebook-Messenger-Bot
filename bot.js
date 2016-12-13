@@ -54,11 +54,11 @@ const actions = {
         if (recipientId) {
             // Yay, we found our recipient!
             // Let's forward our bot response to her.
-            //   FB.fbMessage(recipientId, message, forwardingHandler);
+            FB.fbMessage(recipientId, message, forwardingHandler);
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////// 
 
-            FB.quick(recipientId, message, forwardingHandler);
+            // FB.quick(recipientId, message, forwardingHandler);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////
 
