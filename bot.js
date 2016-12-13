@@ -40,7 +40,7 @@ const actions = {
                         console.log(
                             '(fbQuick)Oops! An error occurred while forwarding the response to',
                             recipientId,
-                            ':',
+                            ':', message,
 
                             err
                         );
