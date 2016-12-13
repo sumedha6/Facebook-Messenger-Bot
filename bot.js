@@ -34,7 +34,24 @@ const actions = {
         }
         const recipientId = context._fbid_;
         if (recipientId) {
-            let i = 0;
+            const sendFBQuick = () => {
+                FB.quick(recipientId, message, (err, data) => {
+                    if (err) {
+                        console.log(
+                            '(fbQuick)Oops! An error occurred while forwarding the response to',
+                            recipientId,
+                            ':',
+
+                            err
+                        );
+                    }
+                    cb();
+
+                    // Let's give the wheel back to our bot
+                });
+            };
+
+
             FB.fbMessage(recipientId, message, (err, data) => {
                 if (err) {
                     console.log(
@@ -44,27 +61,10 @@ const actions = {
 
                         err
                     );
-                }
-
-                i = i + 1;
-                //            if (i == 2) cb();
+                    cb();
+                } else sendFBQuick();
             });
 
-            FB.quick(recipientId, message, (err, data) => {
-                if (err) {
-                    console.log(
-                        '(fbQuick)Oops! An error occurred while forwarding the response to',
-                        recipientId,
-                        ':',
-
-                        err
-                    );
-                }
-
-                // Let's give the wheel back to our bot
-                i = i + 1;
-                if (i == 2) cb();
-            });
 
         } else {
             console.log('Oops! Couldn\'t find user in context:', context);
