@@ -32,35 +32,39 @@ const actions = {
             cb();
             return;
         }
-
-        // Our bot has something to say!
-        // Let's retrieve the Facebook user whose session belongs to from context
-        // TODO: need to get Facebook user name
-        const forwardingHandler = (err, data) => {
-            if (err) {
-                console.log(
-                    'Oops! An error occurred while forwarding the response to',
-                    recipientId,
-                    ':',
-
-                    err
-                );
-            }
-
-            // Let's give the wheel back to our bot
-            cb();
-        };
         const recipientId = context._fbid_;
         if (recipientId) {
-            // Yay, we found our recipient!
-            // Let's forward our bot response to her.
-            FB.fbMessage(recipientId, message, forwardingHandler);
+            let i = 0;
+            FB.fbMessage(recipientId, message, (err, data) => {
+                if (err) {
+                    console.log(
+                        '(fbMessage)Oops! An error occurred while forwarding the response to',
+                        recipientId,
+                        ':',
 
-            ///////////////////////////////////////////////////////////////////////////////////////////////////// 
+                        err
+                    );
+                }
 
-            // FB.quick(recipientId, message, forwardingHandler);
+                i = i + 1;
+                if (i == 2) cb();
+            });
 
-            //////////////////////////////////////////////////////////////////////////////////////////////////////
+            FB.quick(recipientId, message, (err, data) => {
+                if (err) {
+                    console.log(
+                        '(fbQuick)Oops! An error occurred while forwarding the response to',
+                        recipientId,
+                        ':',
+
+                        err
+                    );
+                }
+
+                // Let's give the wheel back to our bot
+                i = i + 1;
+                if (i == 2) cb();
+            });
 
         } else {
             console.log('Oops! Couldn\'t find user in context:', context);
